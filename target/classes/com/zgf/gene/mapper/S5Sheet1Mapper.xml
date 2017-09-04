@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zgf.gene.mapper.S5Sheet1Mapper" >
+  <resultMap id="BaseResultMap" type="com.zgf.gene.pojo.S5Sheet1" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Human" property="human" jdbcType="VARCHAR" />
+    <result column="Mouse" property="mouse" jdbcType="VARCHAR" />
+    <result column="Chicken" property="chicken" jdbcType="VARCHAR" />
+    <result column="Xenopus" property="xenopus" jdbcType="VARCHAR" />
+    <result column="Zebrafish" property="zebrafish" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, Human, Mouse, Chicken, Xenopus, Zebrafish
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zgf.gene.pojo.S5Sheet1Example" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from s5_sheet1
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from s5_sheet1
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="showAll" resultMap="BaseResultMap">
+  	select * from s5_sheet1
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from s5_sheet1
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zgf.gene.pojo.S5Sheet1Example" >
+    delete from s5_sheet1
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zgf.gene.pojo.S5Sheet1" >
+    insert into s5_sheet1 (id, Human, Mouse, 
+      Chicken, Xenopus, Zebrafish
+      )
+    values (#{id,jdbcType=INTEGER}, #{human,jdbcType=VARCHAR}, #{mouse,jdbcType=VARCHAR}, 
+      #{chicken,jdbcType=VARCHAR}, #{xenopus,jdbcType=VARCHAR}, #{zebrafish,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zgf.gene.pojo.S5Sheet1" >
+    insert into s5_sheet1
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="human != null" >
+        Human,
+      </if>
+      <if test="mouse != null" >
+        Mouse,
+      </if>
+      <if test="chicken != null" >
+        Chicken,
+      </if>
+      <if test="xenopus != null" >
+        Xenopus,
+      </if>
+      <if test="zebrafish != null" >
+        Zebrafish,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="human != null" >
+        #{human,jdbcType=VARCHAR},
+      </if>
+      <if test="mouse != null" >
+        #{mouse,jdbcType=VARCHAR},
+      </if>
+      <if test="chicken != null" >
+        #{chicken,jdbcType=VARCHAR},
+      </if>
+      <if test="xenopus != null" >
+        #{xenopus,jdbcType=VARCHAR},
+      </if>
+      <if test="zebrafish != null" >
+        #{zebrafish,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zgf.gene.pojo.S5Sheet1Example" resultType="java.lang.Integer" >
+    select count(*) from s5_sheet1
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update s5_sheet1
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.human != null" >
+        Human = #{record.human,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mouse != null" >
+        Mouse = #{record.mouse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chicken != null" >
+        Chicken = #{record.chicken,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xenopus != null" >
+        Xenopus = #{record.xenopus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zebrafish != null" >
+        Zebrafish = #{record.zebrafish,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update s5_sheet1
+    set id = #{record.id,jdbcType=INTEGER},
+      Human = #{record.human,jdbcType=VARCHAR},
+      Mouse = #{record.mouse,jdbcType=VARCHAR},
+      Chicken = #{record.chicken,jdbcType=VARCHAR},
+      Xenopus = #{record.xenopus,jdbcType=VARCHAR},
+      Zebrafish = #{record.zebrafish,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zgf.gene.pojo.S5Sheet1" >
+    update s5_sheet1
+    <set >
+      <if test="human != null" >
+        Human = #{human,jdbcType=VARCHAR},
+      </if>
+      <if test="mouse != null" >
+        Mouse = #{mouse,jdbcType=VARCHAR},
+      </if>
+      <if test="chicken != null" >
+        Chicken = #{chicken,jdbcType=VARCHAR},
+      </if>
+      <if test="xenopus != null" >
+        Xenopus = #{xenopus,jdbcType=VARCHAR},
+      </if>
+      <if test="zebrafish != null" >
+        Zebrafish = #{zebrafish,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zgf.gene.pojo.S5Sheet1" >
+    update s5_sheet1
+    set Human = #{human,jdbcType=VARCHAR},
+      Mouse = #{mouse,jdbcType=VARCHAR},
+      Chicken = #{chicken,jdbcType=VARCHAR},
+      Xenopus = #{xenopus,jdbcType=VARCHAR},
+      Zebrafish = #{zebrafish,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

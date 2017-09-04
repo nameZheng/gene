@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zgf.gene.mapper.S6Zebrafish2Mapper" >
+  <resultMap id="BaseResultMap" type="com.zgf.gene.pojo.S6Zebrafish2" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="EnsemblGeneID" property="ensemblgeneid" jdbcType="VARCHAR" />
+    <result column="EntrezGeneID" property="entrezgeneid" jdbcType="VARCHAR" />
+    <result column="AssociatedGeneName" property="associatedgenename" jdbcType="VARCHAR" />
+    <result column="human" property="human" jdbcType="VARCHAR" />
+    <result column="mouse" property="mouse" jdbcType="VARCHAR" />
+    <result column="chicken" property="chicken" jdbcType="VARCHAR" />
+    <result column="xeopus" property="xeopus" jdbcType="VARCHAR" />
+    <result column="paralogy" property="paralogy" jdbcType="VARCHAR" />
+    <result column="Description" property="description" jdbcType="VARCHAR" />
+    <result column="pathway" property="pathway" jdbcType="VARCHAR" />
+    <result column="enzyme" property="enzyme" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, EnsemblGeneID, EntrezGeneID, AssociatedGeneName, human, mouse, chicken, xeopus, 
+    paralogy, Description, pathway, enzyme
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zgf.gene.pojo.S6Zebrafish2Example" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from s6_zebrafish_2
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from s6_zebrafish_2
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="showAll" resultMap="BaseResultMap" >
+  	select * from s6_zebrafish_2
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from s6_zebrafish_2
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zgf.gene.pojo.S6Zebrafish2Example" >
+    delete from s6_zebrafish_2
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zgf.gene.pojo.S6Zebrafish2" >
+    insert into s6_zebrafish_2 (id, EnsemblGeneID, EntrezGeneID, 
+      AssociatedGeneName, human, mouse, 
+      chicken, xeopus, paralogy, 
+      Description, pathway, enzyme
+      )
+    values (#{id,jdbcType=INTEGER}, #{ensemblgeneid,jdbcType=VARCHAR}, #{entrezgeneid,jdbcType=VARCHAR}, 
+      #{associatedgenename,jdbcType=VARCHAR}, #{human,jdbcType=VARCHAR}, #{mouse,jdbcType=VARCHAR}, 
+      #{chicken,jdbcType=VARCHAR}, #{xeopus,jdbcType=VARCHAR}, #{paralogy,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{pathway,jdbcType=VARCHAR}, #{enzyme,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zgf.gene.pojo.S6Zebrafish2" >
+    insert into s6_zebrafish_2
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="ensemblgeneid != null" >
+        EnsemblGeneID,
+      </if>
+      <if test="entrezgeneid != null" >
+        EntrezGeneID,
+      </if>
+      <if test="associatedgenename != null" >
+        AssociatedGeneName,
+      </if>
+      <if test="human != null" >
+        human,
+      </if>
+      <if test="mouse != null" >
+        mouse,
+      </if>
+      <if test="chicken != null" >
+        chicken,
+      </if>
+      <if test="xeopus != null" >
+        xeopus,
+      </if>
+      <if test="paralogy != null" >
+        paralogy,
+      </if>
+      <if test="description != null" >
+        Description,
+      </if>
+      <if test="pathway != null" >
+        pathway,
+      </if>
+      <if test="enzyme != null" >
+        enzyme,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="ensemblgeneid != null" >
+        #{ensemblgeneid,jdbcType=VARCHAR},
+      </if>
+      <if test="entrezgeneid != null" >
+        #{entrezgeneid,jdbcType=VARCHAR},
+      </if>
+      <if test="associatedgenename != null" >
+        #{associatedgenename,jdbcType=VARCHAR},
+      </if>
+      <if test="human != null" >
+        #{human,jdbcType=VARCHAR},
+      </if>
+      <if test="mouse != null" >
+        #{mouse,jdbcType=VARCHAR},
+      </if>
+      <if test="chicken != null" >
+        #{chicken,jdbcType=VARCHAR},
+      </if>
+      <if test="xeopus != null" >
+        #{xeopus,jdbcType=VARCHAR},
+      </if>
+      <if test="paralogy != null" >
+        #{paralogy,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="pathway != null" >
+        #{pathway,jdbcType=VARCHAR},
+      </if>
+      <if test="enzyme != null" >
+        #{enzyme,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zgf.gene.pojo.S6Zebrafish2Example" resultType="java.lang.Integer" >
+    select count(*) from s6_zebrafish_2
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update s6_zebrafish_2
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.ensemblgeneid != null" >
+        EnsemblGeneID = #{record.ensemblgeneid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.entrezgeneid != null" >
+        EntrezGeneID = #{record.entrezgeneid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.associatedgenename != null" >
+        AssociatedGeneName = #{record.associatedgenename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.human != null" >
+        human = #{record.human,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mouse != null" >
+        mouse = #{record.mouse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chicken != null" >
+        chicken = #{record.chicken,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xeopus != null" >
+        xeopus = #{record.xeopus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paralogy != null" >
+        paralogy = #{record.paralogy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        Description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pathway != null" >
+        pathway = #{record.pathway,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enzyme != null" >
+        enzyme = #{record.enzyme,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update s6_zebrafish_2
+    set id = #{record.id,jdbcType=INTEGER},
+      EnsemblGeneID = #{record.ensemblgeneid,jdbcType=VARCHAR},
+      EntrezGeneID = #{record.entrezgeneid,jdbcType=VARCHAR},
+      AssociatedGeneName = #{record.associatedgenename,jdbcType=VARCHAR},
+      human = #{record.human,jdbcType=VARCHAR},
+      mouse = #{record.mouse,jdbcType=VARCHAR},
+      chicken = #{record.chicken,jdbcType=VARCHAR},
+      xeopus = #{record.xeopus,jdbcType=VARCHAR},
+      paralogy = #{record.paralogy,jdbcType=VARCHAR},
+      Description = #{record.description,jdbcType=VARCHAR},
+      pathway = #{record.pathway,jdbcType=VARCHAR},
+      enzyme = #{record.enzyme,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zgf.gene.pojo.S6Zebrafish2" >
+    update s6_zebrafish_2
+    <set >
+      <if test="ensemblgeneid != null" >
+        EnsemblGeneID = #{ensemblgeneid,jdbcType=VARCHAR},
+      </if>
+      <if test="entrezgeneid != null" >
+        EntrezGeneID = #{entrezgeneid,jdbcType=VARCHAR},
+      </if>
+      <if test="associatedgenename != null" >
+        AssociatedGeneName = #{associatedgenename,jdbcType=VARCHAR},
+      </if>
+      <if test="human != null" >
+        human = #{human,jdbcType=VARCHAR},
+      </if>
+      <if test="mouse != null" >
+        mouse = #{mouse,jdbcType=VARCHAR},
+      </if>
+      <if test="chicken != null" >
+        chicken = #{chicken,jdbcType=VARCHAR},
+      </if>
+      <if test="xeopus != null" >
+        xeopus = #{xeopus,jdbcType=VARCHAR},
+      </if>
+      <if test="paralogy != null" >
+        paralogy = #{paralogy,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        Description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="pathway != null" >
+        pathway = #{pathway,jdbcType=VARCHAR},
+      </if>
+      <if test="enzyme != null" >
+        enzyme = #{enzyme,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zgf.gene.pojo.S6Zebrafish2" >
+    update s6_zebrafish_2
+    set EnsemblGeneID = #{ensemblgeneid,jdbcType=VARCHAR},
+      EntrezGeneID = #{entrezgeneid,jdbcType=VARCHAR},
+      AssociatedGeneName = #{associatedgenename,jdbcType=VARCHAR},
+      human = #{human,jdbcType=VARCHAR},
+      mouse = #{mouse,jdbcType=VARCHAR},
+      chicken = #{chicken,jdbcType=VARCHAR},
+      xeopus = #{xeopus,jdbcType=VARCHAR},
+      paralogy = #{paralogy,jdbcType=VARCHAR},
+      Description = #{description,jdbcType=VARCHAR},
+      pathway = #{pathway,jdbcType=VARCHAR},
+      enzyme = #{enzyme,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

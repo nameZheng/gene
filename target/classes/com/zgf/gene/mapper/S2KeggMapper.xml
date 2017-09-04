@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zgf.gene.mapper.S2KeggMapper" >
+  <resultMap id="BaseResultMap" type="com.zgf.gene.pojo.S2Kegg" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Term" property="term" jdbcType="VARCHAR" />
+    <result column="Count" property="count" jdbcType="INTEGER" />
+    <result column="perCent" property="percent" jdbcType="VARCHAR" />
+    <result column="PValue" property="pvalue" jdbcType="VARCHAR" />
+    <result column="Genes" property="genes" jdbcType="VARCHAR" />
+    <result column="ListTotal" property="listtotal" jdbcType="VARCHAR" />
+    <result column="PopHits" property="pophits" jdbcType="VARCHAR" />
+    <result column="PopTotal" property="poptotal" jdbcType="VARCHAR" />
+    <result column="FoldEnrichment" property="foldenrichment" jdbcType="VARCHAR" />
+    <result column="Bonferroni" property="bonferroni" jdbcType="VARCHAR" />
+    <result column="Benjamini" property="benjamini" jdbcType="VARCHAR" />
+    <result column="FDR" property="fdr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, Term, Count, perCent, PValue, Genes, ListTotal, PopHits, PopTotal, FoldEnrichment, 
+    Bonferroni, Benjamini, FDR
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zgf.gene.pojo.S2KeggExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from s2_kegg
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from s2_kegg
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="showAll" resultMap="BaseResultMap">
+  	select * from s2_kegg
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from s2_kegg
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zgf.gene.pojo.S2KeggExample" >
+    delete from s2_kegg
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zgf.gene.pojo.S2Kegg" >
+    insert into s2_kegg (id, Term, Count, 
+      perCent, PValue, Genes, 
+      ListTotal, PopHits, PopTotal, 
+      FoldEnrichment, Bonferroni, Benjamini, 
+      FDR)
+    values (#{id,jdbcType=INTEGER}, #{term,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER}, 
+      #{percent,jdbcType=VARCHAR}, #{pvalue,jdbcType=VARCHAR}, #{genes,jdbcType=VARCHAR}, 
+      #{listtotal,jdbcType=VARCHAR}, #{pophits,jdbcType=VARCHAR}, #{poptotal,jdbcType=VARCHAR}, 
+      #{foldenrichment,jdbcType=VARCHAR}, #{bonferroni,jdbcType=VARCHAR}, #{benjamini,jdbcType=VARCHAR}, 
+      #{fdr,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zgf.gene.pojo.S2Kegg" >
+    insert into s2_kegg
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="term != null" >
+        Term,
+      </if>
+      <if test="count != null" >
+        Count,
+      </if>
+      <if test="percent != null" >
+        perCent,
+      </if>
+      <if test="pvalue != null" >
+        PValue,
+      </if>
+      <if test="genes != null" >
+        Genes,
+      </if>
+      <if test="listtotal != null" >
+        ListTotal,
+      </if>
+      <if test="pophits != null" >
+        PopHits,
+      </if>
+      <if test="poptotal != null" >
+        PopTotal,
+      </if>
+      <if test="foldenrichment != null" >
+        FoldEnrichment,
+      </if>
+      <if test="bonferroni != null" >
+        Bonferroni,
+      </if>
+      <if test="benjamini != null" >
+        Benjamini,
+      </if>
+      <if test="fdr != null" >
+        FDR,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="term != null" >
+        #{term,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null" >
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="percent != null" >
+        #{percent,jdbcType=VARCHAR},
+      </if>
+      <if test="pvalue != null" >
+        #{pvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="genes != null" >
+        #{genes,jdbcType=VARCHAR},
+      </if>
+      <if test="listtotal != null" >
+        #{listtotal,jdbcType=VARCHAR},
+      </if>
+      <if test="pophits != null" >
+        #{pophits,jdbcType=VARCHAR},
+      </if>
+      <if test="poptotal != null" >
+        #{poptotal,jdbcType=VARCHAR},
+      </if>
+      <if test="foldenrichment != null" >
+        #{foldenrichment,jdbcType=VARCHAR},
+      </if>
+      <if test="bonferroni != null" >
+        #{bonferroni,jdbcType=VARCHAR},
+      </if>
+      <if test="benjamini != null" >
+        #{benjamini,jdbcType=VARCHAR},
+      </if>
+      <if test="fdr != null" >
+        #{fdr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zgf.gene.pojo.S2KeggExample" resultType="java.lang.Integer" >
+    select count(*) from s2_kegg
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  
+  <update id="updateByExampleSelective" parameterType="map" >
+    update s2_kegg
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.term != null" >
+        Term = #{record.term,jdbcType=VARCHAR},
+      </if>
+      <if test="record.count != null" >
+        Count = #{record.count,jdbcType=INTEGER},
+      </if>
+      <if test="record.percent != null" >
+        perCent = #{record.percent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pvalue != null" >
+        PValue = #{record.pvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.genes != null" >
+        Genes = #{record.genes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.listtotal != null" >
+        ListTotal = #{record.listtotal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pophits != null" >
+        PopHits = #{record.pophits,jdbcType=VARCHAR},
+      </if>
+      <if test="record.poptotal != null" >
+        PopTotal = #{record.poptotal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.foldenrichment != null" >
+        FoldEnrichment = #{record.foldenrichment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bonferroni != null" >
+        Bonferroni = #{record.bonferroni,jdbcType=VARCHAR},
+      </if>
+      <if test="record.benjamini != null" >
+        Benjamini = #{record.benjamini,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fdr != null" >
+        FDR = #{record.fdr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update s2_kegg
+    set id = #{record.id,jdbcType=INTEGER},
+      Term = #{record.term,jdbcType=VARCHAR},
+      Count = #{record.count,jdbcType=INTEGER},
+      perCent = #{record.percent,jdbcType=VARCHAR},
+      PValue = #{record.pvalue,jdbcType=VARCHAR},
+      Genes = #{record.genes,jdbcType=VARCHAR},
+      ListTotal = #{record.listtotal,jdbcType=VARCHAR},
+      PopHits = #{record.pophits,jdbcType=VARCHAR},
+      PopTotal = #{record.poptotal,jdbcType=VARCHAR},
+      FoldEnrichment = #{record.foldenrichment,jdbcType=VARCHAR},
+      Bonferroni = #{record.bonferroni,jdbcType=VARCHAR},
+      Benjamini = #{record.benjamini,jdbcType=VARCHAR},
+      FDR = #{record.fdr,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zgf.gene.pojo.S2Kegg" >
+    update s2_kegg
+    <set >
+      <if test="term != null" >
+        Term = #{term,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null" >
+        Count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="percent != null" >
+        perCent = #{percent,jdbcType=VARCHAR},
+      </if>
+      <if test="pvalue != null" >
+        PValue = #{pvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="genes != null" >
+        Genes = #{genes,jdbcType=VARCHAR},
+      </if>
+      <if test="listtotal != null" >
+        ListTotal = #{listtotal,jdbcType=VARCHAR},
+      </if>
+      <if test="pophits != null" >
+        PopHits = #{pophits,jdbcType=VARCHAR},
+      </if>
+      <if test="poptotal != null" >
+        PopTotal = #{poptotal,jdbcType=VARCHAR},
+      </if>
+      <if test="foldenrichment != null" >
+        FoldEnrichment = #{foldenrichment,jdbcType=VARCHAR},
+      </if>
+      <if test="bonferroni != null" >
+        Bonferroni = #{bonferroni,jdbcType=VARCHAR},
+      </if>
+      <if test="benjamini != null" >
+        Benjamini = #{benjamini,jdbcType=VARCHAR},
+      </if>
+      <if test="fdr != null" >
+        FDR = #{fdr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zgf.gene.pojo.S2Kegg" >
+    update s2_kegg
+    set Term = #{term,jdbcType=VARCHAR},
+      Count = #{count,jdbcType=INTEGER},
+      perCent = #{percent,jdbcType=VARCHAR},
+      PValue = #{pvalue,jdbcType=VARCHAR},
+      Genes = #{genes,jdbcType=VARCHAR},
+      ListTotal = #{listtotal,jdbcType=VARCHAR},
+      PopHits = #{pophits,jdbcType=VARCHAR},
+      PopTotal = #{poptotal,jdbcType=VARCHAR},
+      FoldEnrichment = #{foldenrichment,jdbcType=VARCHAR},
+      Bonferroni = #{bonferroni,jdbcType=VARCHAR},
+      Benjamini = #{benjamini,jdbcType=VARCHAR},
+      FDR = #{fdr,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
