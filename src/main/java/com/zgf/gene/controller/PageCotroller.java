@@ -13,10 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 */
 @Controller
 public class PageCotroller {
-
 	@RequestMapping("/")
 	public String indexpage(){
-		
 		return "index";
 	}
 }
